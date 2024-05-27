@@ -11,34 +11,30 @@ mongoose.connect("mongodb://localhost:27017/libirary", {
   useUnifiedTopology: true,
 });
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, unique: true, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
-});
+const User = require('./models/User');
 
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    const salt = await bcrypt.genSalt(20);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-  next();
-});
-
-const User = mongoose.model("User", userSchema);
-
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { username,email, password } = req.body;
+  const existingUser = await User.findOne({ 
+    $or: [
+      { username: username }, 
+      { email: email } 
+    ] 
+  });
+  if (existingUser) {
+    return res.status(400).send({ message: "Username or email already exists" });
+  }
   const user = new User({ username,email, password });
   await user.save();
-  res.status(201).send({ message: "User registered successfully" });
+ 
+  const token = jwt.sign({ userId: user._id }, "secret");
+
+  res.status(201).send({  token,username:user.username  });
 });
 
 app.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ userId: user._id }, "secret");
     res.send({ token,username:user.username });

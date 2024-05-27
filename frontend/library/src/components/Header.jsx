@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { LOGOUT, logout } from '../store/features/auth/actions';
 
 
 const NAVBAR_CLASS = "bg-white dark:bg-zinc-800 p-4 shadow-md";
@@ -12,15 +13,18 @@ const sharedClasses = {
 const Navbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const [isExpanded, setIsExpanded] = useState(false);
+    const dispatch=useDispatch();
+    const handleClickLogout=()=>dispatch({ type: LOGOUT })
 
     const handleSearchClick = () => {
+      console.log(localStorage);
       setIsExpanded(!isExpanded);
     };
   return (
     <nav className={NAVBAR_CLASS}>
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <img src="https://placehold.co/30x30" alt="Bookmark Logo" className="mr-2" />
+          <img src="images/logo.png" alt="Bookmark Logo" className="mr-2 w-7 h-7" />
           <span className="text-yellow-600 dark:text-yellow-400 font-bold text-xl">Books</span>
         </div>
         <div className="hidden md:flex space-x-4">
@@ -46,8 +50,8 @@ const Navbar = () => {
         />
       </div>
     </div>
-    { isAuthenticated?<Link to={'/Login'} className="bg-yellow-600 text-white px-4 py-2 rounded-full hover:bg-yellow-700">Logout</Link>
-    : <Link to={'/Login'} className={`${BUTTON_CLASSES} bg-yellow-600 text-white`}>Login</Link>
+    { isAuthenticated?<button type='button' onClick={handleClickLogout} className="bg-yellow-600 text-white px-4 py-2 rounded-full hover:bg-yellow-700">Logout</button>
+    : <Link  to={'/Login'} className={`${BUTTON_CLASSES} bg-yellow-600 text-white`}>Login</Link>
 
 
     }

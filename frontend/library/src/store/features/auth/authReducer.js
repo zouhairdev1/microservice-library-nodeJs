@@ -15,12 +15,18 @@ const authReducer = (state = init, action) => {
             error: null,
           };
         case LOGIN_SUCCESS:
+          const user=action.payload;
+          localStorage.setItem('user',JSON.stringify({...user,isAuthenticated:true}) )
+         
+          
+         
             return {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload,
+                user:user ,
               };
+           
         case LOGIN_FAILURE:
             return {
                 ...state,
@@ -28,6 +34,7 @@ const authReducer = (state = init, action) => {
                 error: action.payload,
               };
         case LOGOUT:
+          localStorage.removeItem('user')
         return {
             ...state,
             isAuthenticated: false,

@@ -10,17 +10,17 @@ const inputClasses = "mt-1 block w-full px-3 py-2 border border-zinc-300 dark:bo
 const buttonClasses = "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50";
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.auth);
-    const credentials={username,password}
+    const credentials={email,password}
   // Async thunk for user login
 
     const handleSubmit = (e) => {
       e.preventDefault();
       dispatch(login(credentials));
-      console.log({ username,password  });
+     
     };
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-100 dark:bg-zinc-800">
@@ -28,8 +28,8 @@ const Login = () => {
                 <Link to={'/'} className="text-2xl font-bold text-center text-zinc-800 dark:text-zinc-200 mb-4">Library Login</Link>
                 <form className="w-full" onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="username" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Username or Email</label>
-                        <input   type="text" value={username}onChange={(e) => setUsername(e.target.value)} id="username" name="username" className={inputClasses} required />
+                        <label htmlFor="email" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Username or Email</label>
+                        <input   type="email" value={email}onChange={(e) => setEmail(e.target.value)} id="email" name="email" className={inputClasses} required />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="password" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Password</label>
