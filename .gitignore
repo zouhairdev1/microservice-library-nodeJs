@@ -1,0 +1,21 @@
+/backend/server/node_modules
+/frontend/library/node_modules
+/frontend/library/.pnp
+/frontend/library/.pnp.js
+
+# testing
+/frontend/library/coverage
+
+# production
+/frontend/library/build
+
+# misc
+/frontend/library/.DS_Store
+/frontend/library/.env.local
+/frontend/library/.env.development.local
+/frontend/library/.env.test.local
+/frontend/library/.env.production.local
+
+/frontend/library/npm-debug.log*
+/frontend/library/yarn-debug.log*
+/frontend/library/yarn-error.log*
