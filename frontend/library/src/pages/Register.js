@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const inputClasses = 'mt-1 block w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm';
 const labelClasses = 'block text-sm font-medium text-zinc-700 dark:text-zinc-300';
-const buttonClasses = 'bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50';
+const buttonClasses = 'bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ const Register = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-100 dark:bg-zinc-800">
             <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md max-w-md w-full">
-                <Link to={'/'} className="text-2xl font-bold text-center text-zinc-800 dark:text-zinc-200 mb-4">Library Register</Link>
+                <Link to={'/'} className="text-2xl font-bold text-center text-yellow-600 dark:text-yellow-200 mb-4">Library Register</Link>
                 <form className="w-full" onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="username" className={labelClasses}>Username</label>
